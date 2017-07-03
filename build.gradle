@@ -1,0 +1,38 @@
+buildscript {
+  repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+  }
+
+  dependencies {
+    classpath "org.elasticsearch.gradle:build-tools:5.4.3"
+  }
+}
+
+group = 'org.elasticsearch.plugin.search'
+version = '0.0.1-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'elasticsearch.esplugin'
+apply plugin: 'idea'
+
+esplugin {
+  name 'elasticsearch-hyperloglogplussum'
+  description 'rocks'
+  classname 'org.elasticsearch.plugin.search.hyperloglogplusplugin.HyperLogLogPlusAggregationPlugin'
+
+}
+
+dependencies {
+  compile  'com.clearspring.analytics:stream:2.9.5'
+  testCompile 'org.elasticsearch.test:framework:5.4.3'
+}
+
+
+checkstyleMain.enabled = true
+checkstyleTest.enabled = true
+dependencyLicenses.enabled = false
+thirdPartyAudit.enabled = false
+
+
