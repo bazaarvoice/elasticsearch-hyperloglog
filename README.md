@@ -12,7 +12,7 @@ to go with stream-lib as ES implementation may change and usage of HyperLogLogPl
 
 ### Sample usecase
 
-####Unique audience count a dataset of product page visits , with a few billion users and 200 million products.
+#### Unique audience count a dataset of product page visits , with a few billion users and 200 million products.
 
 To get unique audience count by any dimension of given product ( name , description , attributes, brand etc etc ) , one of the ways is to index 
 each profle as document with product and their attribute as property in document which  demands a huge index and the view is very 'visit centric'.
