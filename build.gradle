@@ -19,7 +19,7 @@ apply plugin: 'idea'
 
 esplugin {
   name 'elasticsearch-hyperloglogplussum'
-  description 'rocks'
+  description 'Allows aggregation of HyperloglogPlus serialized objects'
   classname 'org.elasticsearch.plugin.search.hyperloglogplusplugin.HyperLogLogPlusAggregationPlugin'
 
 }

@@ -13,6 +13,7 @@ import org.elasticsearch.search.internal.SearchContext;
 
 import java.io.IOException;
 
+// BEFOREPROMOTE: must be renamed with Unique (not Uniqe)
 public class HyperUniqeSumAggregationBuilder extends ValuesSourceAggregationBuilder<ValuesSource.Bytes, HyperUniqeSumAggregationBuilder> {
     public static final String NAME = "hyperlogsum";
     public static final int SERIALIZED_SPARSE_PRECISION  = 25;
@@ -54,6 +55,7 @@ public class HyperUniqeSumAggregationBuilder extends ValuesSourceAggregationBuil
         return builder;
     }
 
+    // BEFOREPROMOTE: These seem incorrect; shouldn't we fix up innerHashCode and innerEquals?
     @Override
     protected int innerHashCode() {
         return 0;
