@@ -57,7 +57,7 @@ This will produce a zip file in `build/distributions`.
 After building the zip file, you can install it like this
 
 ```bash
-bin/plugin install file:///path/to/elasticsearch-hyperloglogplus/build/distribution/elasticsearch-hyperloglogplus.zip
+bin/elasticsearch-plugin install file:///path/to/elasticsearch-hyperloglogplus/build/distribution/elasticsearch-hyperloglogplus.zip
 ```
 
 
@@ -119,11 +119,10 @@ for  i in range(1,100):
 ### Querying with custom aggregation
 
 ```
-curl -XPOST 'localhost:9200/_search?pretty=true&size=0' -d 
-'{ "query" : {"match_all" : {}}, "aggs" : { "desc.keyword" : { "terms" : { "field" : "description"}  ,  "aggs" : {  "uniq" : {"hyperlogsum" : { "field" : "hll" } } } } } }'
+curl -XPOST 'localhost:9200/_search?pretty=true&size=0' -d '{ "query" : {"match_all" : {}}, "aggs" : { "desc.keyword" : { "terms" : { "field" : "desc.keyword"}  ,  "aggs" : {  "uniq" : {"hyperlogsum" : { "field" : "hll" } } } } } }'
 
 {
-  "took" : 3,
+  "took" : 36,
   "timed_out" : false,
   "_shards" : {
     "total" : 5,
@@ -131,7 +130,7 @@ curl -XPOST 'localhost:9200/_search?pretty=true&size=0' -d
     "failed" : 0
   },
   "hits" : {
-    "total" : 100,
+    "total" : 99,
     "max_score" : 0.0,
     "hits" : [ ]
   },
@@ -142,7 +141,7 @@ curl -XPOST 'localhost:9200/_search?pretty=true&size=0' -d
       "buckets" : [
         {
           "key" : "bar",
-          "doc_count" : 100,
+          "doc_count" : 99,
           "uniq" : {
             "value" : 200.0
           }
@@ -151,6 +150,7 @@ curl -XPOST 'localhost:9200/_search?pretty=true&size=0' -d
     }
   }
 }
+
 ```
 
 ## Bugs & TODO
