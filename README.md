@@ -34,7 +34,32 @@ directly using stream-lib with same precision used by plugin internally (`HyperU
 
 ### Elasticsearch Versions
 
-Current master is compatible with ES 5.4.3 - latest ES production version.  Please create an issue if a different ES-version-specific release needs to be made.
+Since this plugin might change with minor versions of ES , Source code is organized into  ES version specific directory. Currently we support ES 5.4.3.
+
+Please create an issue if a different ES-version-specific release needs to be made.
+
+## Setup
+
+Switch to ES version specific directory .
+
+```bash
+cd es-5.4.3
+```
+
+In order to install this plugin, you need to create a zip distribution first by running
+
+```bash
+gradle clean assemble
+```
+
+This will produce a zip file in `build/distributions`.
+
+After building the zip file, you can install it like this
+
+```bash
+bin/plugin install file:///path/to/elasticsearch-hyperloglogplus/build/distribution/elasticsearch-hyperloglogplus.zip
+```
+
 
 ### Elasticsearch Mappings
 
@@ -126,22 +151,6 @@ curl -XPOST 'localhost:9200/_search?pretty=true&size=0' -d
     }
   }
 }
-```
-
-## Setup
-
-In order to install this plugin, you need to create a zip distribution first by running
-
-```bash
-gradle clean check
-```
-
-This will produce a zip file in `build/distributions`.
-
-After building the zip file, you can install it like this
-
-```bash
-bin/plugin install file:///path/to/elasticsearch-hyperloglogplus/build/distribution/elasticsearch-hyperloglogplus.zip
 ```
 
 ## Bugs & TODO

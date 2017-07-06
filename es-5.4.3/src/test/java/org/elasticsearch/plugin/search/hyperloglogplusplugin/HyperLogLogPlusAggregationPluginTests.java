@@ -197,7 +197,6 @@ public class HyperLogLogPlusAggregationPluginTests extends ESIntegTestCase {
                     .setQuery(matchAllQuery())
                     .addAggregation(new HyperUniqueSumAggregationBuilder("hyperlog").field("hll"))
                     .execute().actionGet();
-            fail("Expected exception on deserializing HLL ");
 
         }catch (Exception ex){
             assertThat(ex.toString(),containsString("Failed to deserialize HLLPlus"));
@@ -205,23 +204,6 @@ public class HyperLogLogPlusAggregationPluginTests extends ESIntegTestCase {
 
     }
 
-    public void testInvalidHLLWithWrongPrecision() throws Exception {
-
-        try {
-            SearchResponse searchResponse = client().prepareSearch("idx_wrong_precision_hll")
-                    .setQuery(matchAllQuery())
-                    .addAggregation(new HyperUniqueSumAggregationBuilder("hyperlog").field("hll"))
-                    .execute().actionGet();
-            fail("Expected exception on fetch phase");
-
-        }catch (Exception ex){
-            assertThat(ex.toString(),containsString("Failed to execute phase [fetch]"));
-        }
-
-
-    }
-
-    //Cannot merge estimators of different sizes
 
     @Override
     protected Collection<Class<? extends Plugin>> transportClientPlugins() {
