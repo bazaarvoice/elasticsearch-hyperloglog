@@ -41,7 +41,7 @@ public class InternalHyperUniqueSum extends InternalNumericMetricsAggregation.Si
 
     @Override
     public String getWriteableName() {
-        return HyperUniqeSumAggregationBuilder.NAME;
+        return HyperUniqueSumAggregationBuilder.NAME;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class InternalHyperUniqueSum extends InternalNumericMetricsAggregation.Si
 
     @Override
     public InternalHyperUniqueSum doReduce(List<InternalAggregation> aggregations, ReduceContext reduceContext) {
-        HyperLogLogPlus total = new HyperLogLogPlus(HyperUniqeSumAggregationBuilder.SERIALIZED_DENSE_PRECISION, HyperUniqeSumAggregationBuilder.SERIALIZED_SPARSE_PRECISION);
+        HyperLogLogPlus total = new HyperLogLogPlus(HyperUniqueSumAggregationBuilder.SERIALIZED_DENSE_PRECISION, HyperUniqueSumAggregationBuilder.SERIALIZED_SPARSE_PRECISION);
         for (InternalAggregation aggregation : aggregations) {
             byte[] bytes = ((InternalHyperUniqueSum) aggregation).hyperLogLogPlusBytes;
             if (bytes != null && bytes.length > 0) {

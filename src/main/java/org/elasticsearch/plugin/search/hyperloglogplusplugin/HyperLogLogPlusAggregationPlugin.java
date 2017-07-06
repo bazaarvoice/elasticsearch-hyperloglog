@@ -13,7 +13,7 @@ public class HyperLogLogPlusAggregationPlugin extends Plugin implements SearchPl
     @Override
     public List<AggregationSpec> getAggregations() {
         ArrayList<AggregationSpec> aggregationSpecs = new ArrayList<>(1);
-        aggregationSpecs.add(new AggregationSpec(HyperUniqeSumAggregationBuilder.NAME, HyperUniqeSumAggregationBuilder::new, HyperUniqeSumAggregationBuilder::parse)
+        aggregationSpecs.add(new AggregationSpec(HyperUniqueSumAggregationBuilder.NAME, HyperUniqueSumAggregationBuilder::new, HyperUniqueSumAggregationBuilder::parse)
                 .addResultReader(InternalHyperUniqueSum::new));
         return aggregationSpecs;
     }

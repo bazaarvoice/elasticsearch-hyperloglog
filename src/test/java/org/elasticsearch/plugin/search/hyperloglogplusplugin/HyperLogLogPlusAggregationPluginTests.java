@@ -41,7 +41,7 @@ public class HyperLogLogPlusAggregationPluginTests extends ESIntegTestCase {
 
     // adds string representations of integers 0 .. max-1
     private String getHLLStringForTesting(int max) {
-        HyperLogLogPlus hyperLogLogPlus = new HyperLogLogPlus(HyperUniqeSumAggregationBuilder.SERIALIZED_DENSE_PRECISION, HyperUniqeSumAggregationBuilder.SERIALIZED_SPARSE_PRECISION);
+        HyperLogLogPlus hyperLogLogPlus = new HyperLogLogPlus(HyperUniqueSumAggregationBuilder.SERIALIZED_DENSE_PRECISION, HyperUniqueSumAggregationBuilder.SERIALIZED_SPARSE_PRECISION);
         for ( int i = 0; i < max ; i ++){
             hyperLogLogPlus.offer(Integer.toString(i));
         }
@@ -49,7 +49,7 @@ public class HyperLogLogPlusAggregationPluginTests extends ESIntegTestCase {
     }
 
     private String getHLLStringForTestingWithWrongPrecision(int max) {
-        HyperLogLogPlus hyperLogLogPlus = new HyperLogLogPlus(HyperUniqeSumAggregationBuilder.SERIALIZED_DENSE_PRECISION + 5, HyperUniqeSumAggregationBuilder.SERIALIZED_SPARSE_PRECISION + 5);
+        HyperLogLogPlus hyperLogLogPlus = new HyperLogLogPlus(HyperUniqueSumAggregationBuilder.SERIALIZED_DENSE_PRECISION + 5, HyperUniqueSumAggregationBuilder.SERIALIZED_SPARSE_PRECISION + 5);
         for ( int i = 0; i < max ; i ++){
             hyperLogLogPlus.offer(Integer.toString(i));
         }
@@ -133,7 +133,7 @@ public class HyperLogLogPlusAggregationPluginTests extends ESIntegTestCase {
 
         SearchResponse searchResponse = client().prepareSearch("idx_no_hll")
                 .setQuery(matchAllQuery())
-                .addAggregation(new HyperUniqeSumAggregationBuilder("hyperlog").field("hll"))
+                .addAggregation(new HyperUniqueSumAggregationBuilder("hyperlog").field("hll"))
                 .execute().actionGet();
 
         assertThat(searchResponse.getHits().getTotalHits(), equalTo(2L));
@@ -147,7 +147,7 @@ public class HyperLogLogPlusAggregationPluginTests extends ESIntegTestCase {
 
         SearchResponse searchResponse = client().prepareSearch("idx_hll")
                 .setQuery(matchAllQuery())
-                .addAggregation(new HyperUniqeSumAggregationBuilder("hyperlog").field("hll"))
+                .addAggregation(new HyperUniqueSumAggregationBuilder("hyperlog").field("hll"))
                 .execute().actionGet();
 
         assertThat(searchResponse.getHits().getTotalHits(), equalTo(2L));
@@ -161,7 +161,7 @@ public class HyperLogLogPlusAggregationPluginTests extends ESIntegTestCase {
 
         SearchResponse searchResponse = client().prepareSearch("idx_hll")
                 .setQuery(termQuery("tag", "crazy"))
-                .addAggregation(new HyperUniqeSumAggregationBuilder("hyperlog").field("hll"))
+                .addAggregation(new HyperUniqueSumAggregationBuilder("hyperlog").field("hll"))
                 .execute().actionGet();
 
         assertThat(searchResponse.getHits().getTotalHits(), equalTo(1L));
@@ -177,7 +177,7 @@ public class HyperLogLogPlusAggregationPluginTests extends ESIntegTestCase {
                 .setQuery(matchAllQuery())
                 .addAggregation(AggregationBuilders.terms("tag")
                         .field("tag")
-                        .subAggregation(new HyperUniqeSumAggregationBuilder("hyperlog").field("hll")))
+                        .subAggregation(new HyperUniqueSumAggregationBuilder("hyperlog").field("hll")))
                         .execute().actionGet();
 
         assertThat(searchResponse.getHits().getTotalHits(), equalTo(2L));
@@ -195,7 +195,7 @@ public class HyperLogLogPlusAggregationPluginTests extends ESIntegTestCase {
         try {
             SearchResponse searchResponse = client().prepareSearch("idx_invalid_hll")
                     .setQuery(matchAllQuery())
-                    .addAggregation(new HyperUniqeSumAggregationBuilder("hyperlog").field("hll"))
+                    .addAggregation(new HyperUniqueSumAggregationBuilder("hyperlog").field("hll"))
                     .execute().actionGet();
             fail("Expected exception on deserializing HLL ");
 
@@ -210,7 +210,7 @@ public class HyperLogLogPlusAggregationPluginTests extends ESIntegTestCase {
         try {
             SearchResponse searchResponse = client().prepareSearch("idx_wrong_precision_hll")
                     .setQuery(matchAllQuery())
-                    .addAggregation(new HyperUniqeSumAggregationBuilder("hyperlog").field("hll"))
+                    .addAggregation(new HyperUniqueSumAggregationBuilder("hyperlog").field("hll"))
                     .execute().actionGet();
             fail("Expected exception on fetch phase");
 
