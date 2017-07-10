@@ -14,12 +14,11 @@ to go with stream-lib as ES implementation may change and usage of HyperLogLogPl
 
 #### Unique audience count
 
-Given a data set of product page visits with a few billion users and 200 million products, we must count the distinct count of users who had seen a combination of
-products.  These products can be determined by any dimension of given product (name, description, attributes, brand, etc.).  One approach would be to index
-each profile as a document with products and their attributes as properties in the document.  This demands a huge index and the view is very 'visit centric'.
+Given a data set of social media posts with a few billion visits and 10 million posts ( with hashtags) , we must count the distinct count of users who had seen a combination of
+hashtags associated with pages .  One approach would be to index each user as a document with posts and their hashtags as properties in the document.  This demands a huge index and the view is very 'user centric'.
 
-Instead, the approach used here is to index each product as a document with a hyperloglog binary field representing unique visitors for that product. Then, using the
-`hyperlogsum` aggregation provided by this plugin, unique visitors can be computed by any product dimension.
+Instead, the approach used here is to index each post as a document with a hyperloglog binary field representing unique visitors for that post. Then, using the
+`hyperlogsum` aggregation provided by this plugin, unique visitors can be computed by any post dimension ( such as hashtags here).
 
 Computing Hyperloglog binary field to index can be done by one of these ways:
 
