@@ -62,14 +62,14 @@ bin/elasticsearch-plugin install file:///path/to/elasticsearch-hyperloglogplus/b
 
 ### Elasticsearch Mappings
 
-Since we are using binary field in ES for storing HLL, `doc_values` should be set to `true` in the mapping declaration.
+Since we are using binary field in ES for storing HLL, `doc_values` should be set to `true` in the mapping declaration. Doc_values are default automatically true in ES6.
 
 ### Indexing Example 
 
 hll field should be mapped to `type = binary` and `doc_values = true`, like using an index template in below example
 
 ```
-curl -XPUT http://localhost:9200/_template/template_1 -d '
+curl -XPUT http://localhost:9200/_template/template_1 -H 'Content-Type: application/json' -d '
 {
   "order": 0,
   "template": "*",
@@ -77,8 +77,7 @@ curl -XPUT http://localhost:9200/_template/template_1 -d '
     "product": {
       "properties": {
         "hll": {
-          "type": "binary",
-          "doc_values": true
+          "type": "binary"
         },
         "desc": {
           "type": "text",
@@ -111,14 +110,14 @@ data = {
 url = 'http://localhost:9200/newindex/product/a'
 
 for  i in range(1,100):
-	requests.post(url + str(i),json = data)
+  requests.post(url + str(i),json = data)
 ```
 
 
 ### Querying with custom aggregation
 
 ```
-curl -XPOST 'localhost:9200/_search?pretty=true&size=0' -d '{ "query" : {"match_all" : {}}, "aggs" : { "desc.keyword" : { "terms" : { "field" : "desc.keyword"}  ,  "aggs" : {  "uniq" : {"hyperlogsum" : { "field" : "hll" } } } } } }'
+curl -XPOST 'localhost:9200/_search?pretty=true&size=0' -H 'Content-Type: application/json' -d '{ "query" : {"match_all" : {}}, "aggs" : { "desc.keyword" : { "terms" : { "field" : "desc.keyword"}  ,  "aggs" : {  "uniq" : {"hyperlogsum" : { "field" : "hll" } } } } } }'
 
 {
   "took" : 36,
