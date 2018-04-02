@@ -1,0 +1,42 @@
+
+buildscript {
+  repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+  }
+
+  dependencies {
+    classpath "org.elasticsearch.gradle:build-tools:6.2.2"
+  }
+}
+
+group = 'org.elasticsearch.plugin.search'
+version = '0.1'
+
+apply plugin: 'java'
+apply plugin: 'elasticsearch.esplugin'
+apply plugin: 'idea'
+
+licenseFile = file('../license.txt')
+noticeFile = file('../license.txt')
+
+esplugin {
+  name 'elasticsearch-hyperloglogplussum'
+  description 'Allows aggregation of HyperloglogPlus serialized objects'
+  classname 'org.elasticsearch.plugin.search.hyperloglogplusplugin.HyperLogLogPlusAggregationPlugin'
+
+}
+
+dependencies {
+  compile  'com.clearspring.analytics:stream:2.9.5'
+  testCompile 'org.elasticsearch.test:framework:6.2.2'
+}
+
+
+checkstyleMain.enabled = true
+checkstyleTest.enabled = true
+dependencyLicenses.enabled = false
+thirdPartyAudit.enabled = false
+
+

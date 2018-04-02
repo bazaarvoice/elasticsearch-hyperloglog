@@ -69,7 +69,7 @@ Since we are using binary field in ES for storing HLL, `doc_values` should be se
 hll field should be mapped to `type = binary` and `doc_values = true`, like using an index template in below example
 
 ```
-curl -XPUT http://localhost:9200/_template/template_1 -d '
+curl -XPUT http://localhost:9200/_template/template_1 -H 'Content-Type: application/json' -d '
 {
   "order": 0,
   "template": "*",
@@ -118,7 +118,7 @@ for  i in range(1,100):
 ### Querying with custom aggregation
 
 ```
-curl -XPOST 'localhost:9200/_search?pretty=true&size=0' -d '{ "query" : {"match_all" : {}}, "aggs" : { "desc.keyword" : { "terms" : { "field" : "desc.keyword"}  ,  "aggs" : {  "uniq" : {"hyperlogsum" : { "field" : "hll" } } } } } }'
+curl -XPOST 'localhost:9200/_search?pretty=true&size=0' -H 'Content-Type: application/json' -d '{ "query" : {"match_all" : {}}, "aggs" : { "desc.keyword" : { "terms" : { "field" : "desc.keyword"}  ,  "aggs" : {  "uniq" : {"hyperlogsum" : { "field" : "hll" } } } } } }'
 
 {
   "took" : 36,
