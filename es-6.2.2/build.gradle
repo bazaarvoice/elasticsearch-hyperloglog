@@ -34,9 +34,8 @@ dependencies {
 }
 
 
-checkstyleMain.enabled = true
-checkstyleTest.enabled = true
+checkstyleMain.enabled = false
+checkstyleTest.enabled = false
 dependencyLicenses.enabled = false
 thirdPartyAudit.enabled = false
-
-
+licenseHeaders.enabled = false

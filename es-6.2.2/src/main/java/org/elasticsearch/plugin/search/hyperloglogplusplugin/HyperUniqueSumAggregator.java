@@ -37,7 +37,8 @@ public class HyperUniqueSumAggregator extends NumericMetricsAggregator.SingleVal
     private ObjectArray<HyperLogLogPlus> hyperLogLogPlusPlusObjectArray;
 
     HyperUniqueSumAggregator(String name, ValuesSource valuesSource, DocValueFormat formatter, SearchContext context,
-                             Aggregator parent, List<PipelineAggregator> pipelineAggregators, Map<String, Object> metaData) throws IOException {
+                             Aggregator parent, List<PipelineAggregator> pipelineAggregators,
+                             Map<String, Object> metaData) throws IOException {
         super(name, context, parent, pipelineAggregators, metaData);
         this.valuesSource = valuesSource;
         this.format = formatter;

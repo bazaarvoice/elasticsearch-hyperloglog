@@ -16,7 +16,8 @@ import java.util.Map;
 public class HyperUniqueSumAggregatorFactory extends ValuesSourceAggregatorFactory<ValuesSource.Bytes, HyperUniqueSumAggregatorFactory> {
 
     public HyperUniqueSumAggregatorFactory(String name, ValuesSourceConfig<ValuesSource.Bytes> config, SearchContext context,
-                                           AggregatorFactory<?> parent, AggregatorFactories.Builder subFactoriesBuilder, Map<String, Object> metaData) throws IOException {
+                                           AggregatorFactory<?> parent, AggregatorFactories.Builder subFactoriesBuilder,
+                                           Map<String, Object> metaData) throws IOException {
         super(name, config, context, parent, subFactoriesBuilder, metaData);
 
     }

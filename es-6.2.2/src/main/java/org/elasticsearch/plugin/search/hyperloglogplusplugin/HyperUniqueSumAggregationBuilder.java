@@ -46,7 +46,8 @@ public class HyperUniqueSumAggregationBuilder extends ValuesSourceAggregationBui
     }
 
     @Override
-    protected HyperUniqueSumAggregatorFactory innerBuild(SearchContext context, ValuesSourceConfig<ValuesSource.Bytes> config, AggregatorFactory<?> parent, AggregatorFactories.Builder subFactoriesBuilder) throws IOException {
+    protected HyperUniqueSumAggregatorFactory innerBuild(SearchContext context, ValuesSourceConfig<ValuesSource.Bytes> config,
+                    AggregatorFactory<?> parent, AggregatorFactories.Builder subFactoriesBuilder) throws IOException {
         return new HyperUniqueSumAggregatorFactory(name, config, context, parent, subFactoriesBuilder, metaData);
     }
 
